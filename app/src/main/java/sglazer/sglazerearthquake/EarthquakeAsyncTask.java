@@ -7,6 +7,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -40,20 +41,15 @@ public class EarthquakeAsyncTask extends AsyncTask<Long, String, String> {
                     "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson");
             URLConnection connection = url.openConnection();
             InputStream in = connection.getInputStream();
-            byte b[] = new byte[4096];
-            // num bytes returned
-            int n = -1;
-            StringBuilder json = new StringBuilder();
-            while ((n = in.read(b)) != -1) {
-                json.append(new String(b, 0, n));
 
-            }
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
             Gson gson = new GsonBuilder()
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                     .create();
-            Earthquake earthquake = gson.fromJson(new InputStreamReader(in), Earthquake.class);
+            Earthquake earthquake = gson.fromJson(reader, Earthquake.class);
             features = earthquake.getFeatures();
-            adapter = new EarthquakeAdapter(earthquake.getFeatures());
+            adapter = new EarthquakeAdapter(features);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
