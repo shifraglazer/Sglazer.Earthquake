@@ -11,13 +11,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstantState){
         super.onCreate(savedInstantState);
-        setContentView(R.layout.activity_detail);
-        ViewPager viewPager= (ViewPager) findViewById(R.id.viewPager);
-        Features [] features= (Features[]) getIntent().getSerializableExtra("EARTHQUAKES");
-        EarthquakePagerAdapter adapter= new EarthquakePagerAdapter(features,this.getBaseContext());
-        viewPager.setAdapter(adapter);
-        int position= getIntent().getIntExtra("POSITION",0);
+      setContentView(R.layout.activity_detail);
 
-        viewPager.setCurrentItem(position);
     }
 }

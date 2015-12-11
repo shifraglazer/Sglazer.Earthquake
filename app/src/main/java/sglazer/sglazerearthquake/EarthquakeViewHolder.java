@@ -10,11 +10,14 @@ import android.widget.TextView;
 public class EarthquakeViewHolder extends RecyclerView.ViewHolder{
 
     private TextView place;
+    private TextView mag;
     public EarthquakeViewHolder(View itemView) {
         super(itemView);
         place = (TextView) itemView.findViewById(R.id.place);
+        mag= (TextView) itemView.findViewById(R.id.mag);
     }
     public void bind(Features features){
     place.setText(features.getProperties().getPlace());
+        mag.setText(String.valueOf(features.getProperties().getMag()));
     }
 }
